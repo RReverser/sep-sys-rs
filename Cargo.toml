@@ -10,6 +10,7 @@ keywords = ["astronomy", "photometry"]
 categories = ["external-ffi-bindings", "algorithms", "science", "computer-vision"]
 links = "sep"
 license = "LGPL-3.0"
+exclude = ["src/sep/*", "!src/sep/src"]
 
 [build-dependencies]
 cc = "1.0.67"

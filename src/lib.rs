@@ -25,10 +25,10 @@ pub const SEP_FILTER_MATCHED: ::std::os::raw::c_int = 1;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sep_image {
-    pub data: *mut ::std::os::raw::c_void,
-    pub noise: *mut ::std::os::raw::c_void,
-    pub mask: *mut ::std::os::raw::c_void,
-    pub segmap: *mut ::std::os::raw::c_void,
+    pub data: *const ::std::os::raw::c_void,
+    pub noise: *const ::std::os::raw::c_void,
+    pub mask: *const ::std::os::raw::c_void,
+    pub segmap: *const ::std::os::raw::c_void,
     pub dtype: ::std::os::raw::c_int,
     pub ndtype: ::std::os::raw::c_int,
     pub mdtype: ::std::os::raw::c_int,
@@ -111,7 +111,7 @@ impl Default for sep_catalog {
 }
 extern "C" {
     pub fn sep_background(
-        image: *mut sep_image,
+        image: *const sep_image,
         bw: ::std::os::raw::c_int,
         bh: ::std::os::raw::c_int,
         fw: ::std::os::raw::c_int,
@@ -121,21 +121,21 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn sep_bkg_global(bkg: *mut sep_bkg) -> f32;
+    pub fn sep_bkg_global(bkg: *const sep_bkg) -> f32;
 }
 extern "C" {
-    pub fn sep_bkg_globalrms(bkg: *mut sep_bkg) -> f32;
+    pub fn sep_bkg_globalrms(bkg: *const sep_bkg) -> f32;
 }
 extern "C" {
     pub fn sep_bkg_pix(
-        bkg: *mut sep_bkg,
+        bkg: *const sep_bkg,
         x: ::std::os::raw::c_int,
         y: ::std::os::raw::c_int,
     ) -> f32;
 }
 extern "C" {
     pub fn sep_bkg_line(
-        bkg: *mut sep_bkg,
+        bkg: *const sep_bkg,
         y: ::std::os::raw::c_int,
         line: *mut ::std::os::raw::c_void,
         dtype: ::std::os::raw::c_int,
@@ -143,7 +143,7 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_bkg_subline(
-        bkg: *mut sep_bkg,
+        bkg: *const sep_bkg,
         y: ::std::os::raw::c_int,
         line: *mut ::std::os::raw::c_void,
         dtype: ::std::os::raw::c_int,
@@ -151,7 +151,7 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_bkg_rmsline(
-        bkg: *mut sep_bkg,
+        bkg: *const sep_bkg,
         y: ::std::os::raw::c_int,
         line: *mut ::std::os::raw::c_void,
         dtype: ::std::os::raw::c_int,
@@ -159,21 +159,21 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_bkg_array(
-        bkg: *mut sep_bkg,
+        bkg: *const sep_bkg,
         arr: *mut ::std::os::raw::c_void,
         dtype: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn sep_bkg_subarray(
-        bkg: *mut sep_bkg,
+        bkg: *const sep_bkg,
         arr: *mut ::std::os::raw::c_void,
         dtype: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn sep_bkg_rmsarray(
-        bkg: *mut sep_bkg,
+        bkg: *const sep_bkg,
         arr: *mut ::std::os::raw::c_void,
         dtype: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
@@ -183,11 +183,11 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_extract(
-        image: *mut sep_image,
+        image: *const sep_image,
         thresh: f32,
         thresh_type: ::std::os::raw::c_int,
         minarea: ::std::os::raw::c_int,
-        conv: *mut f32,
+        conv: *const f32,
         convw: ::std::os::raw::c_int,
         convh: ::std::os::raw::c_int,
         filter_type: ::std::os::raw::c_int,
@@ -215,7 +215,7 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_sum_circle(
-        image: *mut sep_image,
+        image: *const sep_image,
         x: f64,
         y: f64,
         r: f64,
@@ -230,7 +230,7 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_sum_circann(
-        image: *mut sep_image,
+        image: *const sep_image,
         x: f64,
         y: f64,
         rin: f64,
@@ -246,7 +246,7 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_sum_ellipse(
-        image: *mut sep_image,
+        image: *const sep_image,
         x: f64,
         y: f64,
         a: f64,
@@ -264,7 +264,7 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_sum_ellipann(
-        image: *mut sep_image,
+        image: *const sep_image,
         x: f64,
         y: f64,
         a: f64,
@@ -283,7 +283,7 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_sum_circann_multi(
-        im: *mut sep_image,
+        im: *const sep_image,
         x: f64,
         y: f64,
         rmax: f64,
@@ -300,15 +300,15 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_flux_radius(
-        im: *mut sep_image,
+        im: *const sep_image,
         x: f64,
         y: f64,
         rmax: f64,
         id: ::std::os::raw::c_int,
         subpix: ::std::os::raw::c_int,
         inflag: ::std::os::raw::c_short,
-        fluxtot: *mut f64,
-        fluxfrac: *mut f64,
+        fluxtot: *const f64,
+        fluxfrac: *const f64,
         n: ::std::os::raw::c_int,
         r: *mut f64,
         flag: *mut ::std::os::raw::c_short,
@@ -316,7 +316,7 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_kron_radius(
-        im: *mut sep_image,
+        im: *const sep_image,
         x: f64,
         y: f64,
         cxx: f64,
@@ -330,7 +330,7 @@ extern "C" {
 }
 extern "C" {
     pub fn sep_windowed(
-        im: *mut sep_image,
+        im: *const sep_image,
         x: f64,
         y: f64,
         sig: f64,
@@ -377,7 +377,7 @@ extern "C" {
     );
 }
 extern "C" {
-    pub static mut sep_version_string: *mut ::std::os::raw::c_char;
+    pub static sep_version_string: *const ::std::os::raw::c_char;
 }
 extern "C" {
     pub fn sep_get_errmsg(status: ::std::os::raw::c_int, errtext: *mut ::std::os::raw::c_char);

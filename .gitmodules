@@ -1,3 +1,3 @@
 [submodule "src/sep"]
 	path = src/sep
-	url = git@github.com:kbarbary/sep.git
+	url = https://github.com/sep-developers/sep

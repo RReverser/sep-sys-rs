@@ -5,10 +5,7 @@ fn main() {
             std::fs::read_dir("src/sep/src")
                 .unwrap()
                 .map(|entry| entry.unwrap().path())
-                .filter(|path| match path.extension() {
-                    Some(ext) => ext == "c",
-                    None => false,
-                }),
+                .filter(|path| path.extension().is_some_and(|ext| ext == "c")),
         )
         .compile("sep");
 }
